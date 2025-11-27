@@ -1,17 +1,48 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Inventory
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding">
+    <div *ngIf="loading" class="ion-text-center">Loading...</div>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+    <ion-grid *ngIf="!loading">
+      <ion-row>
+        <ion-col>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Supplier</th>
+                <th>Status</th>
+                <th>Featured</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of inventoryItems">
+                <td>{{item.item_id}}</td>
+                <td>{{item.item_name}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.supplier_name}}</td>
+                <td>{{item.stock_status}}</td>
+                <td>{{item.featured_item}}</td>
+                <td>{{item.special_note}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

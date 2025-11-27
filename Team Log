@@ -17,6 +17,22 @@ Page 1 - Adding new records (dylan)
 
 Page 2 - Listing and Searching (koby)
 
+25/11/2025 - 14:00 -> 16:00
+-Created data service using a get request to call from the API endpoint 
+-Created the interface that will be used as a model for inventory items/ incoming data
+-Created basic table styling 
+
+26/11/2025 - 13:00 -> 14:00
+- implemented oninit to fetch data on start
+- connects to data service
+- implemented loading placeholder
+- imports neccesary modules
+- integrated error handling for failed data load
+
+27/11/2025 - 12:00 -> 13:00
+- Introduced table styling 
+- Using Ionic grid layout to center and resize table
+- more effective display
 
 Page 3 - Update/Delete (Steve)
 
