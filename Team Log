@@ -34,6 +34,13 @@ Page 2 - Listing and Searching (koby)
 - Using Ionic grid layout to center and resize table
 - more effective display
 
+28/11/2025 - 12:00 -> 14:00
+- created the get request that takes an input (name) as a parameter
+- search word bound to the search bar via data binding
+- created inonic search bar and buttons
+- search triggered when search button clicked
+- created a refresh button to refresh table to display all data
+
 Page 3 - Update/Delete (Steve)
 
 

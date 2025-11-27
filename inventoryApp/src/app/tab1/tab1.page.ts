@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { InventoryService } from '../services/inventory.service';
 import { InventoryItem } from '../models/inventory-item.model';
 
@@ -8,18 +9,22 @@ import { InventoryItem } from '../models/inventory-item.model';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, CommonModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, CommonModule, FormsModule],
 })
 export class Tab1Page implements OnInit {
-  inventoryItems: InventoryItem[] = [];
-  loading = true;
+  inventoryItems: InventoryItem[] = []; // Stores all items from API
+  searchResults: InventoryItem[] = []; // Stores search results displayed in table
+  searchTerm: string = ''; // Bound to search bar input
+  loading = true; // Controls loading message display
 
   constructor(private inventoryService: InventoryService) {}
 
+  // Fetch all inventory items on page load
   ngOnInit() {
     this.inventoryService.getInventoryItems().subscribe({
       next: (data) => {
         this.inventoryItems = data;
+        this.searchResults = data;
         this.loading = false;
       },
       error: (error) => {
@@ -27,5 +32,23 @@ export class Tab1Page implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  // Search for items by name using API endpoint
+  searchItems() {
+    if (this.searchTerm.trim() === '') {
+      this.searchResults = this.inventoryItems;
+    } else {
+      this.inventoryService.getInventoryItemByName(this.searchTerm).subscribe({
+        next: (data) => this.searchResults = data,
+        error: () => this.searchResults = []
+      });
+    }
+  }
+
+  // Reset search and show all items
+  refreshItems() {
+    this.searchTerm = '';
+    this.searchResults = this.inventoryItems;
   }
 }

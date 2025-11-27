@@ -1,3 +1,4 @@
+// Interface defining the structure of inventory items from API
 export interface InventoryItem {
   item_id: number;
   item_name: string;

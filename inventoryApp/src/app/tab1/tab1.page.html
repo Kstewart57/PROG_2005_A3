@@ -8,8 +8,22 @@
 
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
+    <!-- Search bar with two-way binding to searchTerm -->
+    <ion-searchbar 
+      placeholder="Search by name" 
+      [(ngModel)]="searchTerm"
+      (keyup.enter)="searchItems()">
+    </ion-searchbar>
+    
+    <!-- Trigger search with API call -->
+    <ion-button expand="block" (click)="searchItems()">Search</ion-button>
+    <!-- Reset search and display all items -->
+    <ion-button expand="block" fill="outline" (click)="refreshItems()">Refresh</ion-button>
+
+    <!-- Display loading message while fetching data -->
     <div *ngIf="loading" class="ion-text-center">Loading...</div>
 
+    <!-- Display inventory items in table -->
     <ion-grid *ngIf="!loading">
       <ion-row>
         <ion-col>
@@ -28,7 +42,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of inventoryItems">
+              <!-- Loop through filtered items and display each row -->
+              <tr *ngFor="let item of searchResults">
                 <td>{{item.item_id}}</td>
                 <td>{{item.item_name}}</td>
                 <td>{{item.category}}</td>
