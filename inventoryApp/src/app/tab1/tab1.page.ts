@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, IonButtons, IonModal } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InventoryService } from '../services/inventory.service';
@@ -9,13 +9,14 @@ import { InventoryItem } from '../models/inventory-item.model';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, CommonModule, FormsModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, IonButtons, IonModal, CommonModule, FormsModule],
 })
 export class Tab1Page implements OnInit {
   inventoryItems: InventoryItem[] = []; // Stores all items from API
-  searchResults: InventoryItem[] = []; // Stores search results displayed in table
+  searchResults: InventoryItem[] = []; // Stores items currently displayed in table
   searchTerm: string = ''; // Bound to search bar input
   loading = true; // Controls loading message display
+  showHelp = false; // Controls help visibility
 
   constructor(private inventoryService: InventoryService) {}
 
@@ -50,5 +51,10 @@ export class Tab1Page implements OnInit {
   refreshItems() {
     this.searchTerm = '';
     this.searchResults = this.inventoryItems;
+  }
+
+  // Toggle help 
+  toggleHelp() {
+    this.showHelp = !this.showHelp;
   }
 }
