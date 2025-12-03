@@ -109,7 +109,7 @@ export class Tab2Page implements OnInit {
 
         • Quantity and Price must be numeric values.
 
-        • Turn on "Featured Item" to show it in the Featured Items list.<br>
+        • Turn on "Featured Item" to show it in the Featured Items list.
       `,
       buttons: ['OK'],
     });
