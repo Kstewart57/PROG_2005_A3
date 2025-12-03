@@ -65,6 +65,10 @@ Page 2 - Listing and Searching (koby)
 
 Page 3 - Update/Delete (Steve)
 
+25/11/2025 – 19:00 → 22:00
+- Set up Tab 3 to be the update/delete screen in the tabs layout and checked navigation was working.
+- Created the inventory service, connected it to the API, and did a few quick test calls to make sure the app could talk to the API endpoint.​
+- Put together the basic Ionic layout for the page using cards and form fields for all the item details, then added the Search, Save changes and Delete buttons ready to wire up.
 
 Page 4 - Privacy and Security (team)
 
