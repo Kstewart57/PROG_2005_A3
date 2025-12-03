@@ -1,17 +1,116 @@
+<!--
+  Tab 3: Update / Delete
+  Author: Stephen Travers 23885594
+  Description: Find, edit and delete inventory items.
+-->
+
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Update / Delete</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <!-- Search item -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Find item</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Item name</ion-label>
+        <ion-input [(ngModel)]="searchName"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="onSearch()">Search</ion-button>
+
+      <!-- Search result message -->
+      <p [style.color]="formIsError ? 'red' : 'green'">
+        {{ formMessage }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Edit item (after search) -->
+  <ion-card *ngIf="currentItem.length">
+    <ion-card-header>
+      <ion-card-title>Edit item</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label position="floating">Category</ion-label>
+        <ion-select [(ngModel)]="currentItem[0].category">
+          <ion-select-option value="Electronics">Electronics</ion-select-option>
+          <ion-select-option value="Furniture">Furniture</ion-select-option>
+          <ion-select-option value="Clothing">Clothing</ion-select-option>
+          <ion-select-option value="Tools">Tools</ion-select-option>
+          <ion-select-option value="Miscellaneous">Miscellaneous</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Quantity</ion-label>
+        <ion-input type="number" [(ngModel)]="currentItem[0].quantity"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Price</ion-label>
+        <ion-input type="number" [(ngModel)]="currentItem[0].price"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Supplier</ion-label>
+        <ion-input [(ngModel)]="currentItem[0].supplier_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Stock status</ion-label>
+        <ion-select [(ngModel)]="currentItem[0].stock_status">
+          <ion-select-option value="In stock">In stock</ion-select-option>
+          <ion-select-option value="Low stock">Low stock</ion-select-option>
+          <ion-select-option value="Out of stock">Out of stock</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Featured (0 or 1)</ion-label>
+        <ion-input type="number" [(ngModel)]="currentItem[0].featured_item"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Special note</ion-label>
+        <ion-textarea [(ngModel)]="currentItem[0].special_note"></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" color="primary" (click)="onUpdate()">Save changes</ion-button>
+
+      <!-- Update message -->
+      <p [style.color]="updateIsError ? 'red' : 'green'">
+        {{ updateMessage }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Delete item -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Delete item</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Name to delete</ion-label>
+        <ion-input [(ngModel)]="deleteName"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" color="danger" (click)="onDelete()">Delete</ion-button>
+
+      <!-- Delete result -->
+      <p [style.color]="deleteIsError ? 'red' : 'green'">
+        {{ deleteMessage }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
