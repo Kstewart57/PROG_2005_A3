@@ -1,17 +1,202 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Add Items</ion-title>
+
+    <!--Help Button-->
+    <ion-buttons slot="end">
+      <ion-button (click)="openHelp()">Help</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <!-- Add New Item -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add New Item</ion-card-title>
+      <ion-card-subtitle>Use this form to add a new inventory item.</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form #addForm="ngForm" (ngSubmit)="onAddItem(addForm)">
+
+        <!-- Item Name -->
+        <ion-item>
+          <ion-label position="floating">Item Name *</ion-label>
+          <ion-input
+            type="text"
+            name="itemName"
+            required
+            [(ngModel)]="currentItem.itemName"
+            #itemNameCtrl="ngModel">
+          </ion-input>
+        </ion-item>
+        <ion-note
+          *ngIf="itemNameCtrl.invalid && itemNameCtrl.touched"
+          color="danger">
+          Item Name is required.
+        </ion-note>
+
+        <!-- Category -->
+        <ion-item>
+          <ion-label>Category *</ion-label>
+          <ion-select
+            name="category"
+            interface="popover"
+            placeholder="Select Category"
+            required
+            [(ngModel)]="currentItem.category"
+            #categoryCtrl="ngModel">
+            <ion-select-option value="Electronics">Electronics</ion-select-option>
+            <ion-select-option value="Furniture">Furniture</ion-select-option>
+            <ion-select-option value="Clothing">Clothing</ion-select-option>
+            <ion-select-option value="Tools">Tools</ion-select-option>
+            <ion-select-option value="Miscellaneous">Miscellaneous</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-note
+          *ngIf="categoryCtrl.invalid && categoryCtrl.touched"
+          color="danger">
+          Category is required.
+        </ion-note>
+
+        <!-- Quantity -->
+        <ion-item>
+          <ion-label position="floating">Quantity *</ion-label>
+          <ion-input
+            type="number"
+            name="quantity"
+            required
+            min="0"
+            step="1"
+            [(ngModel)]="currentItem.quantity"
+            #quantityCtrl="ngModel">
+          </ion-input>
+        </ion-item>
+        <ion-note
+          *ngIf="quantityCtrl.invalid && quantityCtrl.touched"
+          color="danger">
+          Quantity is required and must be a number.
+        </ion-note>
+
+        <!-- Price -->
+        <ion-item>
+          <ion-label position="floating">Price ($) *</ion-label>
+          <ion-input
+            type="number"
+            name="price"
+            required
+            min="0"
+            step="0.01"
+            [(ngModel)]="currentItem.price"
+            #priceCtrl="ngModel">
+          </ion-input>
+        </ion-item>
+        <ion-note
+          *ngIf="priceCtrl.invalid && priceCtrl.touched"
+          color="danger">
+          Price is required and must be a number.
+        </ion-note>
+
+        <!-- Supplier Name -->
+        <ion-item>
+          <ion-label position="floating">Supplier Name *</ion-label>
+          <ion-input
+            type="text"
+            name="supplierName"
+            required
+            [(ngModel)]="currentItem.supplierName"
+            #supplierNameCtrl="ngModel">
+          </ion-input>
+        </ion-item>
+        <ion-note
+          *ngIf="supplierNameCtrl.invalid && supplierNameCtrl.touched"
+          color="danger">
+          Supplier Name is required.
+        </ion-note>
+
+        <!-- Stock Status -->
+        <ion-item>
+          <ion-label>Stock Status *</ion-label>
+          <ion-select
+            name="stockStatus"
+            interface="popover"
+            placeholder="Select Status"
+            required
+            [(ngModel)]="currentItem.stockStatus"
+            #stockStatusCtrl="ngModel">
+            <ion-select-option value="In Stock">In Stock</ion-select-option>
+            <ion-select-option value="Low Stock">Low Stock</ion-select-option>
+            <ion-select-option value="Out of Stock">Out of Stock</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-note
+          *ngIf="stockStatusCtrl.invalid && stockStatusCtrl.touched"
+          color="danger">
+          Stock Status is required.
+        </ion-note>
+
+        <!-- Featured Item -->
+        <ion-item lines="none">
+          <ion-label>Featured Item</ion-label>
+          <ion-toggle
+            name="featured"
+            [(ngModel)]="currentItem.featured">
+          </ion-toggle>
+        </ion-item>
+
+        <!-- Special Note -->
+        <ion-item>
+          <ion-label position="stacked">Special Note</ion-label>
+          <ion-textarea
+            name="specialNote"
+            auto-grow="true"
+            [(ngModel)]="currentItem.specialNote">
+          </ion-textarea>
+        </ion-item>
+
+        <!-- Add Item Button -->
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="addForm.invalid">
+          Add Item
+        </ion-button>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Divider between form and featured section -->
+  <ion-item-divider class="ion-margin-top">
+    <ion-label>Featured Items</ion-label>
+  </ion-item-divider>
+
+  <!-- Featured Items -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Featured Items</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <!-- Placeholder list -->
+      <ion-list *ngIf="featuredItems && featuredItems.length > 0">
+        <ion-item *ngFor="let item of featuredItems">
+          <ion-label>
+            <h2>{{ item.itemName }}</h2>
+            <p>{{ item.category }} - Qty: {{ item.quantity }} - ${{ item.price }}</p>
+            <p>Supplier: {{ item.supplierName }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-text *ngIf="!featuredItems || featuredItems.length === 0">
+        No featured items yet. Mark items as “Featured” when adding them.
+      </ion-text>
+
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

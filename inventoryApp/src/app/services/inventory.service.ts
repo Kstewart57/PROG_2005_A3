@@ -6,6 +6,7 @@ import { InventoryItem } from '../models/inventory-item.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class InventoryService {
   private apiUrl = 'https://prog2005.it.scu.edu.au/ArtGalley';
 
@@ -20,4 +21,10 @@ export class InventoryService {
   getInventoryItemByName(name: string): Observable<InventoryItem[]> {
     return this.http.get<InventoryItem[]>(`${this.apiUrl}/${name}`);
   }
+
+  // Create new item in Inventory
+  createItem(item: any): Observable<any> {
+    return this.http.post(this.apiUrl, item);
+  }
+
 }
