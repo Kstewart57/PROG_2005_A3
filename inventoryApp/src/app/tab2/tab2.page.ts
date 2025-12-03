@@ -29,17 +29,17 @@ import {
 
 import { AlertController } from '@ionic/angular';
 
-// import { InventoryItem } from '../models/inventory-item.model';
+import { InventoryItem } from '../models/inventory-item.model';
 
 import { InventoryService } from '../services/inventory.service';
 
-interface InventoryItem {
+interface InventoryFormItem {
   itemName: string;
   category: string;
   quantity: number | null;
   price: number | null;
   supplierName: string;
-  stockStatus: 'In Stock' | 'Low Stock' | 'Out of Stock' | '';
+  stockStatus: 'In stock' | 'Low stock' | 'Out of stock' | '';
   featured: boolean;
   specialNote?: string;
 }
@@ -76,8 +76,9 @@ interface InventoryItem {
     IonNote,
   ],
 })
-export class Tab2Page {
-  currentItem: InventoryItem = {
+
+export class Tab2Page implements OnInit {
+  currentItem: InventoryFormItem = {
     itemName: '',
     category: '',
     quantity: null,
@@ -88,28 +89,26 @@ export class Tab2Page {
     specialNote: '',
   };
 
-  // Placeholder featured items (UI only)
-  featuredItems: InventoryItem[] = [
-    {
-      itemName: 'Sample Laptop',
-      category: 'Electronics',
-      quantity: 5,
-      price: 1499.99,
-      supplierName: 'Tech World',
-      stockStatus: 'In Stock',
-      featured: true,
-      specialNote: 'Demo item',
-    },
-  ];
+  // Featured items loaded from backend
+  featuredItems: InventoryItem[] = [];
 
-  constructor(private alertController: AlertController) {}
+  constructor(
+    private alertController: AlertController, 
+    private inventoryService: InventoryService
+  ) {}
+
+  ngOnInit() {
+    this.loadFeaturedItems();
+  }
 
   async openHelp() {
     const alert = await this.alertController.create({
       header: 'Help',
       message: `
-        • Fill in all required fields (marked with *).<br>
-        • Quantity and Price must be numeric values.<br>
+        • Fill in all required fields (marked with *).
+
+        • Quantity and Price must be numeric values.
+
         • Turn on "Featured Item" to show it in the Featured Items list.<br>
       `,
       buttons: ['OK'],
@@ -119,28 +118,68 @@ export class Tab2Page {
   }
 
   onAddItem(form: NgForm) {
-    if (form.invalid) {
-      return;
-    }
+    if (form.invalid) return;
 
-    console.log('Add Item:', {
-      ...this.currentItem,
-      featured: this.currentItem.featured ? 1 : 0,
+    const payload = {
+      item_name: this.currentItem.itemName,
+      category: this.currentItem.category,
+      quantity: Number(this.currentItem.quantity),
+      price: Number(this.currentItem.price),
+      supplier_name: this.currentItem.supplierName,
+      stock_status: this.currentItem.stockStatus,
+      featured_item: this.currentItem.featured ? 1 : 0,
+      special_note: this.currentItem.specialNote || null,
+    };
+
+    this.inventoryService.createItem(payload).subscribe({
+      next: async () => {
+        await this.showAlert('Success', 'Item added successfully.');
+
+        // reset form
+        form.resetForm({
+          itemName: '',
+          category: '',
+          quantity: null,
+          price: null,
+          supplierName: '',
+          stockStatus: '',
+          featured: false,
+          specialNote: '',
+        });
+
+        this.loadFeaturedItems();   // Refresh featured section
+      },
+
+      error: async (err) => {
+        console.error('API error:', err);
+        await this.showAlert(
+          'Error',
+          'There was a problem adding the item. Please try again.'
+        );
+      },
     });
+}
 
-    if (this.currentItem.featured) {
-      this.featuredItems.push({ ...this.currentItem });
-    }
-
-    form.resetForm({
-      itemName: '',
-      category: '',
-      quantity: null,
-      price: null,
-      supplierName: '',
-      stockStatus: '',
-      featured: false,
-      specialNote: '',
+private loadFeaturedItems() {
+    this.inventoryService.getInventoryItems().subscribe({
+      next: (items) => {
+        this.featuredItems = (items || []).filter(
+          (i) => i.featured_item === 1
+        );
+      },
+      error: (err) => {
+        console.error('Error loading featured items:', err);
+      },
     });
+  }
+
+  // Helper for alerts
+  private async showAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }

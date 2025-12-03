@@ -126,9 +126,9 @@
             required
             [(ngModel)]="currentItem.stockStatus"
             #stockStatusCtrl="ngModel">
-            <ion-select-option value="In Stock">In Stock</ion-select-option>
-            <ion-select-option value="Low Stock">Low Stock</ion-select-option>
-            <ion-select-option value="Out of Stock">Out of Stock</ion-select-option>
+            <ion-select-option value="In stock">In Stock</ion-select-option>
+            <ion-select-option value="Low stock">Low Stock</ion-select-option>
+            <ion-select-option value="Out of stock">Out of Stock</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-note
@@ -185,9 +185,9 @@
       <ion-list *ngIf="featuredItems && featuredItems.length > 0">
         <ion-item *ngFor="let item of featuredItems">
           <ion-label>
-            <h2>{{ item.itemName }}</h2>
+            <h2>{{ item.item_name }}</h2>
             <p>{{ item.category }} - Qty: {{ item.quantity }} - ${{ item.price }}</p>
-            <p>Supplier: {{ item.supplierName }}</p>
+            <p>Supplier: {{ item.supplier_name }}</p>
           </ion-label>
         </ion-item>
       </ion-list>

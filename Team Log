@@ -18,12 +18,18 @@ Page 1 - Adding new records (dylan)
 -Successfully set up the Ionic Angular project and confirmed that the base Tabs template runs correctly.
 -Configured a .gitignore suitable for group development and ensured the project can be cleanly version-controlled.
 
-02/11/2025 - 08:00 -> 13:00
+02/11/2025 - 08:00 -> 12:00
 -Created basic table for adding items & featured items
 -Added validation rules for required fields and numeric inputs.
 -Implemented the Help widget using Ionic’s AlertController.
 -Designed and built the Featured Items display section with placeholder data.
 -Created TypeScript logic for handling the Add Item form, resetting the form, and adding new featured items locally.
+
+02/11/2025 - 13:00 -> 18:00
+-Implemented full backend integration for Page 2. 
+-Added POST request to submit new items to the API, mapped form fields to the backend’s required JSON structure, converted the featured toggle to 0/1 as required.
+-Implemented GET request to load all inventory items and filtered featured items for display. 
+-Added success/error alerts, improved form resetting, and confirmed server communication works correctly.
 
 Page 2 - Listing and Searching (koby)
 
