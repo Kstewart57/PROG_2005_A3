@@ -7,7 +7,60 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="ion-padding">
-    <p>Privacy and security information will be displayed here.</p>
-  </div>
+    <ion-card>
+    <ion-card-header>
+      <ion-card-title>Privacy & Security Overview</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        This Mobile Inventory Management System helps view, add, update and delete
+        inventory records. This page explains how the app handles protect privacy and security.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Data We Store</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>This app stores inventory data only, including:</p>
+      <ul>
+        <li>Item ID (auto-generated)</li>
+        <li>Item name</li>
+        <li>Category (Electronics, Furniture, Clothing, Tools, Miscellaneous)</li>
+        <li>Quantity and price</li>
+        <li>Supplier name</li>
+        <li>Stock status (In Stock, Low Stock, Out of Stock)</li>
+        <li>Featured item flag</li>
+        <li>Special note (optional)</li>
+      </ul>
+      <p>
+        The app does <strong>not</strong> collect customer details, payment information,
+        or other sensitive personal data.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Public API Usage</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        This app connects to a <strong>public API</strong> to retrieve and update inventory records.
+        The API is used for:
+      </p>
+      <ul>
+        <li>Listing all items</li>
+        <li>Searching for items by name</li>
+        <li>Adding new inventory items</li>
+        <li>Updating or deleting existing items</li>
+      </ul>
+      <p>
+        Only inventory fields required for these operations are sent to the public API.
+        Because the API is public, this app is intended for non-sensitive.
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
