@@ -80,6 +80,10 @@ Page 3 - Update/Delete (Steve)
 - Added basic validation on the search and delete names and hooked up simple success/error messages so the user knows when an action has worked or failed.
 - Checked the behaviour on Tab 3 in the browser, making sure the buttons trigger the correct functions and that the page reacts properly when an item is changed or removed.
 
+06/12/2025 – 18:00 → 18:30
+- Added updateItem and deleteItem functions to the inventory service so the app can send update and delete requests to the API.
+- Tested search, update and delete from Tab 3 to make sure the new service methods work correctly with the existing page logic.
+
 Page 4 - Privacy and Security (team)
 
 
