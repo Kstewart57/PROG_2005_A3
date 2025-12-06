@@ -37,10 +37,12 @@ export class InventoryService {
   createItem(item: any): Observable<any> {
     return this.http.post(this.apiUrl, item);
   }
+  
   // Updating an existing Item
   updateItem(name: string, item: Item): Observable<any> {
     return this.http.put(`${this.apiUrl}/items/${name}`, item);
   }
+  
   // Delete an existing item
   deleteItem(name: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/items/${name}`);
