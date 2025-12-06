@@ -74,6 +74,12 @@ Page 3 - Update/Delete (Steve)
 - Created the inventory service, connected it to the API, and did a few quick test calls to make sure the app could talk to the API endpoint.​
 - Put together the basic Ionic layout for the page using cards and form fields for all the item details, then added the Search, Save changes and Delete buttons ready to wire up.
 
+05/12/2025 – 19:00 → 22:00  
+- Finished wiring the Tab 3 TypeScript logic so it can search for an item by name using the inventory service and load the matching item into the page.
+- Implemented the `onUpdate` and `onDelete` functions so the app can send update and delete requests to the API using the selected item’s name and data.
+- Added basic validation on the search and delete names and hooked up simple success/error messages so the user knows when an action has worked or failed.
+- Checked the behaviour on Tab 3 in the browser, making sure the buttons trigger the correct functions and that the page reacts properly when an item is changed or removed.
+
 Page 4 - Privacy and Security (team)
 
 
