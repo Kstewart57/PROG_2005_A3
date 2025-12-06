@@ -54,7 +54,7 @@ export class Tab3Page {
     }
 
     // ask the API for items that match the name
-    this.inventoryService.getByName(name).subscribe({
+    this.inventoryService.getInventoryItemByName(name).subscribe({
       next: (items) => {
         console.log('SEARCH RESULT', items);
         this.currentItem = items;
@@ -82,6 +82,7 @@ export class Tab3Page {
     if (!this.currentItem.length) {
       return;
     }
+
     const itemToSave = this.currentItem[0];
 
     this.inventoryService.updateItem(itemToSave.item_name, itemToSave).subscribe({
@@ -135,3 +136,4 @@ export class Tab3Page {
     });
   }
 }
+
