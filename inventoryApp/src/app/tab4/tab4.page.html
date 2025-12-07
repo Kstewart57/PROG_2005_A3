@@ -3,11 +3,18 @@
     <ion-title>
       Privacy & Security
     </ion-title>
+
+    <!-- Help button -->
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelpAlert()">
+        HELP
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-card>
+  <ion-card>
     <ion-card-header>
       <ion-card-title>Privacy & Security Overview</ion-card-title>
     </ion-card-header>
@@ -35,32 +42,12 @@
         <li>Featured item flag</li>
         <li>Special note (optional)</li>
       </ul>
-      <p>
-        The app does <strong>not</strong> collect customer details, payment information,
-        or other sensitive personal data.
-      </p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Public API Usage</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>
-        This app connects to a <strong>public API</strong> to retrieve and update inventory records.
-        The API is used for:
-      </p>
-      <ul>
-        <li>Listing all items</li>
-        <li>Searching for items by name</li>
-        <li>Adding new inventory items</li>
-        <li>Updating or deleting existing items</li>
-      </ul>
-      <p>
-        Only inventory fields required for these operations are sent to the public API.
-        Because the API is public, this app is intended for non-sensitive.
-      </p>
+    <p>
+      The app does <strong>not</strong> collect customer details, payment information, or other sensitive personal data.<br>
+      Only authorised users can change inventory data.<br>
+      All changes are sent over a secure connection.
+    </p>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
