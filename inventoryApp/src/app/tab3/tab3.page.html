@@ -4,12 +4,10 @@
   Description: Find, edit and delete inventory items.
 -->
 
-<!-- Header with title and Help button -->
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Update / Delete</ion-title>
 
-    <!-- Help button -->
     <ion-buttons slot="end">
       <ion-button (click)="showHelpAlert()">
         HELP
@@ -18,7 +16,6 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- Page content -->
 <ion-content [fullscreen]="true">
 
   <!-- Find item -->
@@ -35,9 +32,15 @@
       </ion-item>
 
       <!-- Search button -->
-      <ion-button expand="block" (click)="onSearch()">Search</ion-button>
+      <ion-button
+        expand="block"
+        color="primary"
+        shape="round"
+        (click)="onSearch()">
+        Search
+      </ion-button>
 
-      <!-- Search message -->
+      <!-- Message for search + final update result -->
       <p [style.color]="formIsError ? 'red' : 'green'">
         {{ formMessage }}
       </p>
@@ -52,9 +55,14 @@
     <ion-card-content>
 
       <!-- Category -->
-      <ion-item>
-        <ion-label position="floating">Category</ion-label>
-        <ion-select [(ngModel)]="currentItem[0].category">
+      <ion-item class="select-row">
+        <ion-select
+          label="Category"
+          labelPlacement="stacked"
+          interface="popover"
+          fill="outline"
+          placeholder="Tap to choose category"
+          [(ngModel)]="currentItem[0].category">
           <ion-select-option value="Electronics">Electronics</ion-select-option>
           <ion-select-option value="Furniture">Furniture</ion-select-option>
           <ion-select-option value="Clothing">Clothing</ion-select-option>
@@ -82,9 +90,14 @@
       </ion-item>
 
       <!-- Stock status -->
-      <ion-item>
-        <ion-label position="floating">Stock status</ion-label>
-        <ion-select [(ngModel)]="currentItem[0].stock_status">
+      <ion-item class="select-row">
+        <ion-select
+          label="Stock status"
+          labelPlacement="stacked"
+          interface="popover"
+          fill="outline"
+          placeholder="Tap to choose status"
+          [(ngModel)]="currentItem[0].stock_status">
           <ion-select-option value="In stock">In stock</ion-select-option>
           <ion-select-option value="Low stock">Low stock</ion-select-option>
           <ion-select-option value="Out of stock">Out of stock</ion-select-option>
@@ -92,9 +105,14 @@
       </ion-item>
 
       <!-- Featured (Yes/No) -->
-      <ion-item>
-        <ion-label position="stacked">Featured</ion-label>
-        <ion-select [(ngModel)]="currentItem[0].featured_item">
+      <ion-item class="select-row">
+        <ion-select
+          label="Featured"
+          labelPlacement="stacked"
+          interface="popover"
+          fill="outline"
+          placeholder="Tap to choose"
+          [(ngModel)]="currentItem[0].featured_item">
           <ion-select-option [value]="1">Yes</ion-select-option>
           <ion-select-option [value]="0">No</ion-select-option>
         </ion-select>
@@ -107,9 +125,15 @@
       </ion-item>
 
       <!-- Save button -->
-      <ion-button expand="block" color="primary" (click)="onUpdate()">Save changes</ion-button>
+      <ion-button
+        expand="block"
+        color="success"
+        shape="round"
+        (click)="onUpdate()">
+        Save changes
+      </ion-button>
 
-      <!-- Update message -->
+      <!-- Update validation -->
       <p [style.color]="updateIsError ? 'red' : 'green'">
         {{ updateMessage }}
       </p>
@@ -123,16 +147,19 @@
     </ion-card-header>
     <ion-card-content>
 
-      <!-- Name to delete -->
       <ion-item>
         <ion-label position="floating">Name to delete</ion-label>
         <ion-input [(ngModel)]="deleteName"></ion-input>
       </ion-item>
 
-      <!-- Delete button -->
-      <ion-button expand="block" color="danger" (click)="onDelete()">Delete</ion-button>
+      <ion-button
+        expand="block"
+        color="danger"
+        shape="round"
+        (click)="onDelete()">
+        Delete item
+      </ion-button>
 
-      <!-- Delete message -->
       <p [style.color]="deleteIsError ? 'red' : 'green'">
         {{ deleteMessage }}
       </p>
