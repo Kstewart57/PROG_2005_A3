@@ -1,5 +1,16 @@
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  position: sticky;
+  bottom: 0;
+  max-height: calc(100vh - 200px);
+  overflow-y: visible;
+}
+
 table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
 }
 
@@ -7,6 +18,7 @@ th, td {
   padding: 12px;
   text-align: left;
   border: 1px solid var(--ion-color-medium);
+  white-space: nowrap;
 }
 
 th {

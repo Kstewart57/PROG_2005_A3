@@ -14,7 +14,7 @@ has helped you to resolve any issues or has improved your app.
 
 Tab 1 - Listing and Searching (koby)
 
-25/11/2025 - 14:00 -> 16:00
+25/11/2025 - 14:00 -> 17:00
 -Created data service using a get request to call from the API endpoint 
 -Created the interface that will be used as a model for inventory items/ incoming data
 -Created basic table styling 
@@ -38,13 +38,13 @@ Tab 1 - Listing and Searching (koby)
 - search triggered when search button clicked
 - created a refresh button to refresh table to display all data
 
-04/12/2025 - 09:00 -> 10:00
+04/12/2025 - 09:00 -> 11:00
 - create ionic help widget
 - create privacy/security page
 - update styling for the invnetory/ search page
 - change page name to inventory
 
-05/12/2025 - 11:00 -> 12:00
+05/12/2025 - 11:00 -> 13:00
 - work on page styling
 - input privacy and security page information
 

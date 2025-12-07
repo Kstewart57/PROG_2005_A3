@@ -41,35 +41,37 @@
     <ion-grid *ngIf="!loading">
       <ion-row>
         <ion-col>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Supplier</th>
-                <th>Status</th>
-                <th>Featured</th>
-                <th>Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Loop through searched items and display each row -->
-              <tr *ngFor="let item of searchResults">
-                <td>{{item.item_id}}</td>
-                <td>{{item.item_name}}</td>
-                <td>{{item.category}}</td>
-                <td>{{item.quantity}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.supplier_name}}</td>
-                <td>{{item.stock_status}}</td>
-                <td>{{item.featured_item}}</td>
-                <td>{{item.special_note}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Supplier</th>
+                  <th>Status</th>
+                  <th>Featured</th>
+                  <th>Note</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through searched items and display each row -->
+                <tr *ngFor="let item of searchResults">
+                  <td>{{item.item_id}}</td>
+                  <td>{{item.item_name}}</td>
+                  <td>{{item.category}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.supplier_name}}</td>
+                  <td>{{item.stock_status}}</td>
+                  <td>{{item.featured_item}}</td>
+                  <td>{{item.special_note}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
