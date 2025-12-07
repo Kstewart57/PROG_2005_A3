@@ -77,6 +77,13 @@ async showHelpAlert(): Promise<void> {
       next: (items: any[]) => {
         this.currentItem = items as Item[];
 
+        if (this.currentItem.length && this.currentItem[0]) {
+  const raw = (this.currentItem[0] as any).featured_item;
+  const num = Number(raw);
+  (this.currentItem[0] as any).featured_item = num === 1 ? 1 : 0;
+}
+
+
         // message based on result
         if (this.currentItem.length) {
           this.formMessage = 'Item found';
@@ -164,4 +171,3 @@ async showHelpAlert(): Promise<void> {
     });
   }
 }
-
