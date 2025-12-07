@@ -1,11 +1,11 @@
 <!-- author Koby Stewart -->
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Inventory
-    </ion-title>
+    <ion-title>Inventory</ion-title>
+    
+    <!-- Help icon -->
     <ion-buttons slot="end">
-      <ion-button (click)="toggleHelp()">Help</ion-button>
+      <ion-button (click)="showHelpAlert()">HELP</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -64,24 +64,5 @@
       </ion-row>
     </ion-grid>
   </div>
-
-  <!-- Help Modal -->
-  <ion-modal [isOpen]="showHelp" (didDismiss)="showHelp = false">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Help</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="showHelp = false">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <h2>Inventory Search Help</h2>
-        <p><strong>Search:</strong> Enter an item name and click Search to find specific items.</p>
-        <p><strong>Refresh:</strong> Click Refresh to reset the search and display all items.</p>
-        <p><strong>Table:</strong> View all inventory data including ID, name, category, quantity, price, supplier, stock status, featured status, and notes.</p>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
 </ion-content>
+
