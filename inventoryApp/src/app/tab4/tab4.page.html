@@ -24,17 +24,62 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Overview of what this page is about -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Privacy & Security Overview</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>
-        This Mobile Inventory Management System helps view, add, update and delete
-        inventory records. This page explains how the app handles protect privacy and security.
+        This Mobile Inventory Management System helps staff view, add, update and delete
+        inventory records. This page explains how the app looks after privacy and security
+        for this data.
       </p>
     </ion-card-content>
   </ion-card>
+
+  <!-- What data we store -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Data We Store</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>This app stores inventory data only, including:</p>
+      <ul>
+        <li>Item ID (auto-generated)</li>
+        <li>Item name</li>
+        <li>Category (Electronics, Furniture, Clothing, Tools, Miscellaneous)</li>
+        <li>Quantity and price</li>
+        <li>Supplier name</li>
+        <li>Stock status (In Stock, Low Stock, Out of Stock)</li>
+        <li>Featured item flag</li>
+        <li>Special note (optional)</li>
+      </ul>
+      <p>
+        The app does <strong>not</strong> collect customer details, payment information, or other
+        sensitive personal data.<br>
+        Only authorised users can change inventory data.<br>
+        All changes are sent over a secure connection.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- How we protect this data -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>How We Protect Your Data</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Inventory data is sent between the app and server using HTTPS (encrypted connection).</li>
+        <li>Only logged-in staff with access to the inventory system can add, update or delete items.</li>
+        <li>The app only uses this data to manage stock and does not share it with third parties.</li>
+        <li>No personal customer or payment details are stored in the app or inventory database.</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
 
   <ion-card>
     <ion-card-header>
