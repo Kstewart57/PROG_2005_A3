@@ -100,6 +100,10 @@ export class Tab2Page implements OnInit {
     this.loadFeaturedItems();
   }
 
+  ionViewWillEnter() {
+    this.loadFeaturedItems();
+  }
+
   async openHelp() {
     const alert = await this.alertController.create({
       header: 'Help',
