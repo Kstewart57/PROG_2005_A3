@@ -1,0 +1,20 @@
+/* Make sure card content has enough vertical space */
+ion-card-content {
+  padding-bottom: 24px;
+}
+
+/* Extra space above the three select rows */
+ion-card-content ion-item.select-row {
+  margin-top: 18px;
+  padding-top: 4px;
+}
+
+/* Small bottom gap between rows */
+ion-card-content ion-item {
+  margin-bottom: 6px;
+}
+
+/* Add top padding to the stacked labels inside selects */
+ion-item.select-row ion-select {
+  padding-top: 8px;
+}
