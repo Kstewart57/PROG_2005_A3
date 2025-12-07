@@ -21,14 +21,17 @@ export class Tab3Page {
   // Track Dark Mode is active
   isDarkMode = false;
 
+  // check theme when the tab first loads
   ngOnInit() {
     this.isDarkMode = document.body.classList.contains('dark-theme');
   }
 
+  // also check theme every time user opens this tab
   ionViewWillEnter() {
     this.isDarkMode = document.body.classList.contains('dark-theme');
   }
 
+  // turn dark theme on/off when the toggle is used
   toggleDarkMode(event: any) {
     this.isDarkMode = event.detail.checked;
     document.body.classList.toggle('dark-theme', this.isDarkMode);
@@ -65,6 +68,7 @@ export class Tab3Page {
   async showHelpAlert(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Update / Delete help',
+      // simple steps on how to use this tab
       message:
         '• Use "Find item" to search by name.\n' +
         '• Use "Edit item" to change details and tap "Save changes".\n' +
@@ -98,6 +102,7 @@ export class Tab3Page {
     // ask the API for items that match the name
     this.inventoryService.getInventoryItemByName(name).subscribe({
       next: (items: any[]) => {
+        // store the result so it can be edited
         this.currentItem = items as Item[];
 
         // set featured to 0 or 1 for the Yes/No select
@@ -112,6 +117,7 @@ export class Tab3Page {
           this.formMessage = 'Item found';
           this.formIsError = false;
         } else {
+          // nothing came back from API
           this.currentItem = [];
           this.formMessage = 'Item not found';
           this.formIsError = true;
@@ -130,6 +136,7 @@ export class Tab3Page {
         this.formMessage = 'Item not found';
         this.formIsError = true;
 
+        // reset other messages as well
         this.deleteMessage = '';
         this.deleteIsError = false;
         this.updateMessage = '';
@@ -181,6 +188,7 @@ export class Tab3Page {
     // confirmation before updating
     const alert = await this.alertController.create({
       header: 'Confirm update',
+      // show the item name in the confirm text
       message: `Save changes to "${itemToSave.item_name}"?`,
       buttons: [
         {
@@ -191,6 +199,7 @@ export class Tab3Page {
           text: 'Save',
           role: 'destructive',
           handler: () => {
+            // only update if user taps Save
             this.updateItemInApi(itemToSave);
           }
         }
@@ -204,7 +213,7 @@ export class Tab3Page {
   private updateItemInApi(itemToSave: Item) {
     this.inventoryService.updateItem(itemToSave.item_name, itemToSave).subscribe({
       next: () => {
-        // SUCCESS: replace "Item found" with "Item updated" in the Find area
+        // replace validation text with updated version
         this.formMessage = 'Item updated';
         this.formIsError = false;
 
@@ -222,13 +231,14 @@ export class Tab3Page {
       },
       error: (err) => {
         console.error('Update error', err);
-        // ERROR: show under Save changes only
+        // show error in line with the save changes button
         this.updateMessage =
           (err?.error && err.error.message) ||
           (err?.message) ||
           'Update failed';
         this.updateIsError = true;
 
+        // keep delete area clear when update fails
         this.deleteMessage = '';
         this.deleteIsError = false;
       }
@@ -256,6 +266,7 @@ export class Tab3Page {
     // confirmation before deleting
     const alert = await this.alertController.create({
       header: 'Confirm delete',
+      // show the name they are about to delete
       message: `Are you sure you want to delete "${name}"?`,
       buttons: [
         {
@@ -266,6 +277,7 @@ export class Tab3Page {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
+            // only delete if user taps Delete
             this.deleteItemFromApi(name);
           }
         }
@@ -279,6 +291,7 @@ export class Tab3Page {
     // call the API to delete the item
     this.inventoryService.deleteItem(name).subscribe({
       next: (res) => {
+        // show success message from API or simple fallback
         this.deleteMessage = (res as any)?.message || 'Deleted';
         this.deleteIsError = false;
 
@@ -306,6 +319,7 @@ export class Tab3Page {
           'Delete failed (Laptop cannot be deleted or name not found)';
         this.deleteIsError = true;
 
+        // also clear search + update messages on delete error
         this.formMessage = '';
         this.formIsError = false;
         this.updateMessage = '';
@@ -314,4 +328,3 @@ export class Tab3Page {
     });
   }
 }
-
