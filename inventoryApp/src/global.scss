@@ -28,7 +28,9 @@
 /* Ionic Dark Mode */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+/* Help widget layout */
 .help-alert .alert-message {
   white-space: pre-line;
+  line-height: 2;
 }
 
