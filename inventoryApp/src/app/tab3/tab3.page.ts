@@ -6,7 +6,7 @@
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { InventoryService, Item } from '../services/inventory.service';
 
@@ -39,8 +39,27 @@ export class Tab3Page {
   updateMessage = '';
   updateIsError = false;
 
-  // inject the inventory API service
-  constructor(private inventoryService: InventoryService) {}
+  // inject the inventory API service and alert controller
+  constructor(
+    private inventoryService: InventoryService,
+    private alertController: AlertController
+  ) {}
+
+  // show help information in a popup
+async showHelpAlert(): Promise<void> {
+  const alert = await this.alertController.create({
+    header: 'Update / Delete help',
+    message:
+      '1. Use "Find item" to search by name.\n' +
+      '2. Use "Edit item" to change details and tap "Save changes".\n' +
+      '3. Use "Delete item" to remove items.\n' +
+      '4. The item "Laptop" cannot be deleted (the server will return an error).',
+    buttons: ['OK'],
+    cssClass: 'help-alert'
+  });
+
+  await alert.present();
+}
 
   // run when the user clicks Search
   onSearch() {
@@ -58,7 +77,7 @@ export class Tab3Page {
       next: (items: any[]) => {
         this.currentItem = items as Item[];
 
-        // simple message based on result
+        // message based on result
         if (this.currentItem.length) {
           this.formMessage = 'Item found';
           this.formIsError = false;
@@ -78,11 +97,21 @@ export class Tab3Page {
 
   // run when the user clicks Save changes if an item is selected
   onUpdate() {
-    if (!this.currentItem.length) {
+    // make sure an item is loaded
+    if (!this.currentItem.length || !this.currentItem[0]) {
+      this.updateMessage = 'Search for an item before saving changes';
+      this.updateIsError = true;
       return;
     }
 
     const itemToSave = this.currentItem[0];
+
+    // numeric validation
+    if (itemToSave.quantity < 0 || itemToSave.price < 0) {
+      this.updateMessage = 'Quantity and price must be zero or higher';
+      this.updateIsError = true;
+      return;
+    }
 
     this.inventoryService.updateItem(itemToSave.item_name, itemToSave).subscribe({
       next: () => {
@@ -119,10 +148,10 @@ export class Tab3Page {
     // call the API to delete the item
     this.inventoryService.deleteItem(name).subscribe({
       next: (res) => {
-        this.deleteMessage = res.message || 'Deleted';
+        this.deleteMessage = (res as any)?.message || 'Deleted';
         this.deleteIsError = false;
 
-        // after deletion clear the item
+        // after deletion clear the item if it was on screen
         if (this.currentItem[0]?.item_name === name) {
           this.currentItem = [];
         }
