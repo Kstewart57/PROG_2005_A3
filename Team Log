@@ -99,7 +99,8 @@ Tab 3 - Update/Delete (Steve)
 - Improved the help popup styling and behaviour using shared CSS so each instruction appears on its own line with clear spacing and a Close action that dismisses the help message.
 - Tightened Tab 3 validation and feedback by adding extra checks on loaded items and numeric fields, and making sure all success and error messages display clearly for search, update and delete actions.
 - Shared the help box CSS to all Tabs for a consistent look and design.
-
+- Enhanced readability and titles (changes 0/1 to Yes/No for featured items).
+- Added more commenting throughought pages.
 
 Tab 4 - Privacy and Security (team)
 - individual efforts outlined above
