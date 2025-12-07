@@ -36,7 +36,7 @@ export class Tab4Page {
         '• Only item details (like name, category, quantity, price and supplier) are stored.\n' +
         '• No customer or payment information is collected.\n' +
         '• Use the tabs at the bottom to move between pages:\n' +
-        '   - Home: view all inventory items.\n' +
+        '   - Inventory: view all inventory items.\n' +
         '   - Add: create a new item.\n' +
         '   - Update / Delete: find, edit or delete an item.\n' +
         '   - Privacy & Security: read about data handling and app behaviour.',
