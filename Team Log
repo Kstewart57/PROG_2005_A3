@@ -72,6 +72,14 @@ Tab 2 - Adding new records (dylan)
 -Implemented GET request to load all inventory items and filtered featured items for display. 
 -Added success/error alerts, improved form resetting, and confirmed server communication works correctly.
 
+07/12/2025 - 10:00 -> 14:00
+-Fixed spacing and formatting issues with the Help button for tab 2.
+-Fully rebuilt the global.scss file to unify theme colours across all tabs.
+-Implemented consistent styling for cards, tables, forms, and buttons across the entire app.
+-Corrected the app background issue by overriding Ionic's default dark mode behaviour.
+-Removed sections of imports from certain tabs, to resolve Angular compiler warnings.
+-Verified UI consistency across all Tabs
+
 Tab 3 - Update/Delete (Steve)
 
 03/12/2025 – 19:00 → 22:00

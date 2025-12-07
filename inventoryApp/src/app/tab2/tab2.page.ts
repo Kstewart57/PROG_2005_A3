@@ -71,7 +71,6 @@ interface InventoryFormItem {
     IonTextarea,
     IonList,
     IonText,
-    IonItemDivider,
     IonToggle,
     IonNote,
   ],

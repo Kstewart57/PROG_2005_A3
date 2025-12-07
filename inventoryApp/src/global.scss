@@ -25,12 +25,210 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/* Ionic Dark Mode */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Ionic Dark Mode (commented out as kept messing with general colouring) */
+// @import '@ionic/angular/css/palettes/dark.system.css';
 
-/* Help widget layout */
-.help-alert .alert-message {
-  white-space: pre-line;
-  line-height: 2;
+/* Theme Colours */
+
+:root {
+  --app-bg: #ffffff;                   /* White */
+  --app-text: #000000;                 /* Black */
+  --app-grey: #888888;                 /* Mid Grey */
+  --app-grey-light: #e6e6e6;           /* Light Grey */
+  --app-blue: #1e88e5;                 /* Blue (Primary Accent) */
+
+  --ion-color-primary: var(--app-blue);
+  --ion-color-medium: var(--app-grey);
+  --ion-color-light: var(--app-grey-light);
+  --ion-text-color: var(--app-text);
 }
 
+/* Global Layout */
+
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  background: var(--app-bg);
+  color: var(--app-text);
+}
+
+ion-toolbar {
+  --background: var(--app-blue);
+  --color: #ffffff;
+}
+
+ion-title {
+  font-weight: 600;
+}
+
+
+/* Cards UI Styling */
+
+ion-card {
+  margin: 12px 8px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #dcdcdc;
+}
+
+ion-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--app-blue);
+}
+
+ion-card-subtitle {
+  font-size: 0.9rem;
+  color: var(--app-grey);
+}
+
+
+/* Form UI Styling */
+
+ion-item {
+  margin-bottom: 6px;
+}
+
+ion-item + ion-note {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  color: #d32f2f; /* Red for errors */
+}
+
+ion-input,
+ion-select,
+ion-textarea {
+  --background: #ffffff;
+  --color: #000000;
+  --placeholder-color: #666666;
+  --border-color: #cccccc;
+}
+
+ion-button[expand='block'] {
+  margin-top: 12px;
+  --background: var(--app-blue);
+  --color: #ffffff;
+  --border-radius: 8px;
+}
+
+ion-toggle {
+  --handle-background: var(--app-blue);
+}
+
+/* Divider for Tab 2 */
+ion-item-divider {
+  margin-top: 20px;
+  border-radius: 4px;
+  --background: var(--app-grey-light);
+  --color: var(--app-grey);
+  font-weight: 600;
+}
+
+
+/* Table Tab 1 */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  color: #000000;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid #bfbfbf;
+}
+
+th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+/* Zebra stripes */
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+tbody tr:hover {
+  background: #e0e0e0;
+}
+
+/* Make edit/delete buttons consistent */
+ion-button.edit-btn {
+  --background: var(--app-blue);
+  --color: white;
+}
+
+ion-button.delete-btn {
+  --background: #c62828;
+  --color: white;
+}
+
+
+/* Tab Bar (routing) */
+
+ion-tab-bar {
+  --background: #ffffff;
+  border-top: 1px solid var(--app-grey-light);
+}
+
+ion-tab-button {
+  --color: #666666;
+  --color-selected: var(--app-blue);
+}
+
+ion-tab-button ion-icon {
+  font-size: 1.2rem;
+}
+
+
+/* Help Alerts */
+
+.help-alert .alert-title {
+  font-weight: 700;
+  color: var(--app-blue);
+}
+
+.help-alert .alert-message {
+  font-size: 0.9rem;
+  white-space: pre-line;
+  line-height: 1.4;
+  color: #000000;
+}
+
+
+/* Search Feedback */
+
+.feedback-message {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--app-grey-light);
+  color: #000000;
+  border: 1px solid var(--app-grey);
+}
+
+/* Search result card spacing */
+.search-result-card {
+  margin-top: 10px;
+}
+
+
+/* Utility Classes */
+
+.center-text {
+  text-align: center;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
