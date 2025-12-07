@@ -110,6 +110,14 @@ Tab 3 - Update/Delete (Steve)
 - Enhanced readability and titles (changes 0/1 to Yes/No for featured items).
 - Added more commenting throughought pages.
 
+07/12/2025 – 15:00 → 18:00  
+- Fixed errors on final testing
+- Worked on mobile responsiveness
+- Added commenting for all required pages, inventory.ts, tabs etc.
+- Added custom icons for tabs
+- Polishing on Tab3. eg. confirmations on updates, validation messages, empty fileds once confirmed for next use.
+- Added help widget for privacy page and filled with information and page guide.
+
 Tab 4 - Privacy and Security (team)
 - individual efforts outlined above
 
