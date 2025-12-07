@@ -6,6 +6,16 @@
 
     <!-- Help button -->
     <ion-buttons slot="end">
+      <!-- Dark Mode Toggle in Toolbar -->
+      <ion-item lines="none" class="toolbar-dark-toggle">
+        <ion-label>Dark Mode</ion-label>
+        <ion-toggle
+          slot="end"
+          [checked]="isDarkMode"
+          (ionChange)="toggleDarkMode($event)">
+        </ion-toggle>
+      </ion-item>
+
       <ion-button (click)="showHelpAlert()">
         HELP
       </ion-button>

@@ -77,6 +77,10 @@ interface InventoryFormItem {
 })
 
 export class Tab2Page implements OnInit {
+
+  // Track Dark Mode is active
+  isDarkMode = false;
+
   currentItem: InventoryFormItem = {
     itemName: '',
     category: '',
@@ -97,11 +101,18 @@ export class Tab2Page implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
     this.loadFeaturedItems();
   }
 
   ionViewWillEnter() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
     this.loadFeaturedItems();
+  }
+
+  toggleDarkMode(event: any) {
+    this.isDarkMode = event.detail.checked;
+    document.body.classList.toggle('dark-theme', this.isDarkMode);
   }
 
   async openHelp() {

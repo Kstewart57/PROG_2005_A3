@@ -1,14 +1,30 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButtons, IonButton, AlertController } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButtons, IonButton, AlertController, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tab4',
   templateUrl: 'tab4.page.html',
   styleUrls: ['tab4.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButtons, IonButton],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButtons, IonButton, IonItem, IonLabel, IonToggle],
 })
 export class Tab4Page {
+  // Track Dark Mode is active
+  isDarkMode = false;
+
+  ngOnInit() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
+  }
+
+  ionViewWillEnter() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
+  }
+
+  toggleDarkMode(event: any) {
+    this.isDarkMode = event.detail.checked;
+    document.body.classList.toggle('dark-theme', this.isDarkMode);
+  }
+
   constructor(private alertController: AlertController) {}
 
   // show help information in a popup

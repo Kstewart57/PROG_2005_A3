@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, IonButtons, IonModal } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, IonButtons, IonModal, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InventoryService } from '../services/inventory.service';
@@ -11,9 +11,12 @@ import { AlertController } from '@ionic/angular/standalone';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, IonButtons, CommonModule, FormsModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonButton, IonButtons, CommonModule, FormsModule, IonItem, IonLabel, IonToggle],
 })
 export class Tab1Page implements OnInit {
+  // Track Dark Mode is active
+  isDarkMode = false;
+
   inventoryItems: InventoryItem[] = []; // Stores all items from API
   searchResults: InventoryItem[] = []; // Stores items currently displayed in table
   searchTerm: string = ''; // Bound to search bar input
@@ -25,12 +28,19 @@ export class Tab1Page implements OnInit {
 
   // Fetch all inventory items on page load
   ngOnInit() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
     this.loadInventory();
   }
 
   // Refresh data when navigating back to this tab
   ionViewWillEnter() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
     this.loadInventory();
+  }
+
+   toggleDarkMode(event: any) {
+    this.isDarkMode = event.detail.checked;
+    document.body.classList.toggle('dark-theme', this.isDarkMode);
   }
 
   // Load inventory items from API

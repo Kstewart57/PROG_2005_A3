@@ -80,6 +80,10 @@ Tab 2 - Adding new records (dylan)
 -Removed sections of imports from certain tabs, to resolve Angular compiler warnings.
 -Verified UI consistency across all Tabs
 
+07/12/2025 - 17:00 -> 20:00
+-Fixed reloading issue, where pages won't refresh when switching tabs.
+-Added Dark Mode as togglable function to all pages, and added sections to global.scss to accomadate the toggle
+
 Tab 3 - Update/Delete (Steve)
 
 03/12/2025 – 19:00 → 22:00

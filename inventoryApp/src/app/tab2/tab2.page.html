@@ -4,6 +4,16 @@
 
     <!--Help Button-->
     <ion-buttons slot="end">
+      <!-- Dark Mode Toggle in Toolbar -->
+      <ion-item lines="none" class="toolbar-dark-toggle">
+        <ion-label>Dark Mode</ion-label>
+        <ion-toggle
+          slot="end"
+          [checked]="isDarkMode"
+          (ionChange)="toggleDarkMode($event)">
+        </ion-toggle>
+      </ion-item>
+
       <ion-button (click)="openHelp()">Help</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -177,8 +187,8 @@
     <ion-card-content>
 
       <!-- Placeholder list -->
-      <ion-list *ngIf="featuredItems && featuredItems.length > 0">
-        <ion-item *ngFor="let item of featuredItems">
+      <ion-list *ngIf="featuredItems && featuredItems.length > 0" lines="none" class="featured-list">
+        <ion-item *ngFor="let item of featuredItems" lines="none" class="featured-item">
           <ion-label>
             <h2>{{ item.item_name }}</h2>
             <p>{{ item.category }} - Qty: {{ item.quantity }} - ${{ item.price }}</p>

@@ -18,6 +18,22 @@ import { InventoryService, Item } from '../services/inventory.service';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class Tab3Page {
+  // Track Dark Mode is active
+  isDarkMode = false;
+
+  ngOnInit() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
+  }
+
+  ionViewWillEnter() {
+    this.isDarkMode = document.body.classList.contains('dark-theme');
+  }
+
+  toggleDarkMode(event: any) {
+    this.isDarkMode = event.detail.checked;
+    document.body.classList.toggle('dark-theme', this.isDarkMode);
+  }
+
   // name typed into the search box
   searchName = '';
 
