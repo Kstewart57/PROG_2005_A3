@@ -140,16 +140,20 @@ export class Tab3Page {
         this.updateMessage = 'Item updated';
         this.updateIsError = false;
       },
-      // error message if the update fails
-      error: () => {
-        this.updateMessage = 'Update failed';
+      // show basic error details if the update fails
+      error: (err) => {
+        console.error('Update error', err);
+        this.updateMessage =
+          (err?.error && err.error.message) ||
+          (err?.message) ||
+          'Update failed';
         this.updateIsError = true;
       }
     });
   }
 
   // run when the user clicks Delete
-  onDelete() {
+  async onDelete() {
     const name = this.deleteName.trim();
 
     // name must not be empty
@@ -167,12 +171,28 @@ export class Tab3Page {
     }
 
     // confirmation before deleting
-    if (!window.confirm(`Delete "${name}"?`)) {
-      this.deleteMessage = 'Cancelled';
-      this.deleteIsError = true;
-      return;
-    }
+    const alert = await this.alertController.create({
+      header: 'Confirm delete',
+      message: `Are you sure you want to delete "${name}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.deleteItemFromApi(name);
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
+
+  private deleteItemFromApi(name: string) {
     // call the API to delete the item
     this.inventoryService.deleteItem(name).subscribe({
       next: (res) => {
