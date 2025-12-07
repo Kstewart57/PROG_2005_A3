@@ -104,14 +104,12 @@ export class Tab2Page implements OnInit {
   async openHelp() {
     const alert = await this.alertController.create({
       header: 'Help',
-      message: `
-        • Fill in all required fields (marked with *).
-
-        • Quantity and Price must be numeric values.
-
-        • Turn on "Featured Item" to show it in the Featured Items list.
-      `,
+      message: 
+        '• Fill in all required fields (marked with *).' + '\n' +
+        '• Quantity and Price must be numeric values.' + '\n' +
+        '• Turn on "Featured Item" to show it in the Featured Items list.',
       buttons: ['OK'],
+      cssClass: 'help-alert',
     });
 
     await alert.present();
