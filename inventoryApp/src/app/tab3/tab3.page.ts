@@ -46,28 +46,35 @@ export class Tab3Page {
   ) {}
 
   // show help information in a popup
-async showHelpAlert(): Promise<void> {
-  const alert = await this.alertController.create({
-    header: 'Update / Delete help',
-    message:
-      '• Use "Find item" to search by name.\n' +
-      '• Use "Edit item" to change details and tap "Save changes".\n' +
-      '• Use "Delete item" to remove items.\n' +
-      '• The item "Laptop" cannot be deleted (the server will return an error).',
-    buttons: ['OK'],
-    cssClass: 'help-alert'
-  });
+  async showHelpAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Update / Delete help',
+      message:
+        '• Use "Find item" to search by name.\n' +
+        '• Use "Edit item" to change details and tap "Save changes".\n' +
+        '• Use "Delete item" to remove items.\n' +
+        '• The item "Laptop" cannot be deleted (the server will return an error).',
+      buttons: ['OK'],
+      cssClass: 'help-alert'
+    });
 
-  await alert.present();
-}
+    await alert.present();
+  }
 
   // run when the user clicks Search
   onSearch() {
     const name = this.searchName.trim();
 
-    // validation check
+    // name must not be empty
     if (!name) {
       this.formMessage = 'Enter name to search';
+      this.formIsError = true;
+      return;
+    }
+
+    // name must not only be numbers
+    if (/^\d+$/.test(name)) {
+      this.formMessage = 'Name must include text, not just numbers';
       this.formIsError = true;
       return;
     }
@@ -77,12 +84,12 @@ async showHelpAlert(): Promise<void> {
       next: (items: any[]) => {
         this.currentItem = items as Item[];
 
+        // set featured to 0 or 1 for the Yes/No select
         if (this.currentItem.length && this.currentItem[0]) {
-  const raw = (this.currentItem[0] as any).featured_item;
-  const num = Number(raw);
-  (this.currentItem[0] as any).featured_item = num === 1 ? 1 : 0;
-}
-
+          const raw = (this.currentItem[0] as any).featured_item;
+          const num = Number(raw);
+          (this.currentItem[0] as any).featured_item = num === 1 ? 1 : 0;
+        }
 
         // message based on result
         if (this.currentItem.length) {
@@ -113,7 +120,14 @@ async showHelpAlert(): Promise<void> {
 
     const itemToSave = this.currentItem[0];
 
-    // numeric validation
+    // quantity and price must be numbers
+    if (isNaN(Number(itemToSave.quantity)) || isNaN(Number(itemToSave.price))) {
+      this.updateMessage = 'Quantity and price must be numbers';
+      this.updateIsError = true;
+      return;
+    }
+
+    // quantity and price must be zero or higher
     if (itemToSave.quantity < 0 || itemToSave.price < 0) {
       this.updateMessage = 'Quantity and price must be zero or higher';
       this.updateIsError = true;
@@ -138,9 +152,16 @@ async showHelpAlert(): Promise<void> {
   onDelete() {
     const name = this.deleteName.trim();
 
-    // validation check
+    // name must not be empty
     if (!name) {
       this.deleteMessage = 'Enter name to delete';
+      this.deleteIsError = true;
+      return;
+    }
+
+    // name must not only be numbers
+    if (/^\d+$/.test(name)) {
+      this.deleteMessage = 'Name must include text, not just numbers';
       this.deleteIsError = true;
       return;
     }
