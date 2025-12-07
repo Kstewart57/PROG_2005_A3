@@ -94,10 +94,12 @@ Tab 3 - Update/Delete (Steve)
 - Refined Tab 3 behaviour and navigation by adjusting routing and reusing shared service methods where possible to keep the code simpler and more consistent.
 - Polished the UI by renaming the bottom tab and doing quick browser tests to confirm search, update and delete all work smoothly on the Tab 3 screen.
 
-07/12/2025 – 12:00 → 14:00  
+07/12/2025 – 12:00 → 15:00  
 - Implemented a consistent help widget for Tab 3 by adding a “Help” button in the top-right of the header that opens a popup explaining how to search, edit and delete items.
 - Improved the help popup styling and behaviour using shared CSS so each instruction appears on its own line with clear spacing and a Close action that dismisses the help message.
 - Tightened Tab 3 validation and feedback by adding extra checks on loaded items and numeric fields, and making sure all success and error messages display clearly for search, update and delete actions.
+- Shared the help box CSS to all Tabs for a consistent look and design.
+
 
 Tab 4 - Privacy and Security (team)
 - individual efforts outlined above
