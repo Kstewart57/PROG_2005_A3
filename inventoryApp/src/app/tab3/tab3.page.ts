@@ -55,8 +55,7 @@ export class Tab3Page {
 
     // ask the API for items that match the name
     this.inventoryService.getInventoryItemByName(name).subscribe({
-      next: (items) => {
-        console.log('SEARCH RESULT', items);
+      next: (items: any[]) => {
         this.currentItem = items as Item[];
 
         // simple message based on result
