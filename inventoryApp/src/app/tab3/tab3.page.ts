@@ -57,7 +57,7 @@ export class Tab3Page {
     this.inventoryService.getInventoryItemByName(name).subscribe({
       next: (items) => {
         console.log('SEARCH RESULT', items);
-        this.currentItem = items;
+        this.currentItem = items as Item[];
 
         // simple message based on result
         if (this.currentItem.length) {
