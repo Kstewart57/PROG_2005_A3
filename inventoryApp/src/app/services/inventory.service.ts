@@ -19,7 +19,6 @@ export interface Item {
 @Injectable({
   providedIn: 'root'
 })
-
 export class InventoryService {
   private apiUrl = 'https://prog2005.it.scu.edu.au/ArtGalley';
 
@@ -32,7 +31,9 @@ export class InventoryService {
 
   // Search for inventory items by name
   getInventoryItemByName(name: string): Observable<InventoryItem[]> {
-    return this.http.get<InventoryItem[]>(`${this.apiUrl}/${name}`);
+    return this.http.get<InventoryItem[]>(
+      `${this.apiUrl}/${encodeURIComponent(name)}`
+    );
   }
 
   // Create new item in Inventory
@@ -42,12 +43,16 @@ export class InventoryService {
   
   // Updating an existing Item
   updateItem(name: string, item: Item): Observable<any> {
-    return this.http.put(`${this.apiUrl}/items/${name}`, item);
+    return this.http.put(
+      `${this.apiUrl}/${encodeURIComponent(name)}`,
+      item
+    );
   }
   
   // Delete an existing item
   deleteItem(name: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${name}`);
+    return this.http.delete(
+      `${this.apiUrl}/${encodeURIComponent(name)}`
+    );
   }
-
 }
