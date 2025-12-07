@@ -12,6 +12,8 @@ export interface Item {
   stock_status: string;
   popular_item: string;
   comment?: string;
+  featured_item?: number;
+  special_note?: string;
 }
 
 @Injectable({
