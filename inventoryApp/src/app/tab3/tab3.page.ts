@@ -31,11 +31,11 @@ export class Tab3Page {
   deleteMessage = '';
   deleteIsError = false;
 
-  // search feedback text
+  // search + final update feedback text (under Find item)
   formMessage = '';
   formIsError = false;
 
-  // update feedback text
+  // update validation/API feedback text (under Save changes)
   updateMessage = '';
   updateIsError = false;
 
@@ -91,26 +91,39 @@ export class Tab3Page {
           (this.currentItem[0] as any).featured_item = num === 1 ? 1 : 0;
         }
 
-        // message based on result
+        // message based on result (under Find item)
         if (this.currentItem.length) {
           this.formMessage = 'Item found';
           this.formIsError = false;
         } else {
+          this.currentItem = [];
           this.formMessage = 'Item not found';
           this.formIsError = true;
         }
+
+        // clear delete + update messages when searching
+        this.deleteMessage = '';
+        this.deleteIsError = false;
+        this.updateMessage = '';
+        this.updateIsError = false;
       },
       // if the call fails, clear the item and show an error
       error: () => {
         this.currentItem = [];
+        this.searchName = '';
         this.formMessage = 'Item not found';
         this.formIsError = true;
+
+        this.deleteMessage = '';
+        this.deleteIsError = false;
+        this.updateMessage = '';
+        this.updateIsError = false;
       }
     });
   }
 
   // run when the user clicks Save changes if an item is selected
-  onUpdate() {
+  async onUpdate() {
     // make sure an item is loaded
     if (!this.currentItem.length || !this.currentItem[0]) {
       this.updateMessage = 'Search for an item before saving changes';
@@ -119,6 +132,21 @@ export class Tab3Page {
     }
 
     const itemToSave = this.currentItem[0];
+
+    // supplier must not be empty
+    const supplier = (itemToSave.supplier_name || '').trim();
+    if (!supplier) {
+      this.updateMessage = 'Supplier name is required';
+      this.updateIsError = true;
+      return;
+    }
+
+    // supplier must not only be numbers
+    if (/^\d+$/.test(supplier)) {
+      this.updateMessage = 'Supplier name must include letters, not just numbers';
+      this.updateIsError = true;
+      return;
+    }
 
     // quantity and price must be numbers
     if (isNaN(Number(itemToSave.quantity)) || isNaN(Number(itemToSave.price))) {
@@ -134,20 +162,59 @@ export class Tab3Page {
       return;
     }
 
+    // confirmation before updating
+    const alert = await this.alertController.create({
+      header: 'Confirm update',
+      message: `Save changes to "${itemToSave.item_name}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Save',
+          role: 'destructive',
+          handler: () => {
+            this.updateItemInApi(itemToSave);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // helper to call the API for update
+  private updateItemInApi(itemToSave: Item) {
     this.inventoryService.updateItem(itemToSave.item_name, itemToSave).subscribe({
       next: () => {
-        // success message
-        this.updateMessage = 'Item updated';
+        // SUCCESS: replace "Item found" with "Item updated" in the Find area
+        this.formMessage = 'Item updated';
+        this.formIsError = false;
+
+        // clear any previous update error under Save changes
+        this.updateMessage = '';
         this.updateIsError = false;
+
+        // clear delete message
+        this.deleteMessage = '';
+        this.deleteIsError = false;
+
+        // clear edit form and search box after successful update
+        this.currentItem = [];
+        this.searchName = '';
       },
-      // show basic error details if the update fails
       error: (err) => {
         console.error('Update error', err);
+        // ERROR: show under Save changes only
         this.updateMessage =
           (err?.error && err.error.message) ||
           (err?.message) ||
           'Update failed';
         this.updateIsError = true;
+
+        this.deleteMessage = '';
+        this.deleteIsError = false;
       }
     });
   }
@@ -199,20 +266,36 @@ export class Tab3Page {
         this.deleteMessage = (res as any)?.message || 'Deleted';
         this.deleteIsError = false;
 
+        // clear delete box
+        this.deleteName = '';
+
+        // clear search/update message
+        this.formMessage = '';
+        this.formIsError = false;
+        this.updateMessage = '';
+        this.updateIsError = false;
+
         // after deletion clear the item if it was on screen
         if (this.currentItem[0]?.item_name === name) {
           this.currentItem = [];
+          this.searchName = '';
         }
       },
       // handle delete errors (e.g. Laptop rule or name not found)
       error: (err) => {
         console.error('Delete error', err);
-        this.deleteMessage = 
-          (err?.error && err.error.message) || 
-          (err?.message) || 
+        this.deleteMessage =
+          (err?.error && err.error.message) ||
+          (err?.message) ||
           'Delete failed (Laptop cannot be deleted or name not found)';
         this.deleteIsError = true;
+
+        this.formMessage = '';
+        this.formIsError = false;
+        this.updateMessage = '';
+        this.updateIsError = false;
       }
     });
   }
 }
+
