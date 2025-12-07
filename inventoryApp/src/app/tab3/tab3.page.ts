@@ -50,10 +50,10 @@ async showHelpAlert(): Promise<void> {
   const alert = await this.alertController.create({
     header: 'Update / Delete help',
     message:
-      '1. Use "Find item" to search by name.\n' +
-      '2. Use "Edit item" to change details and tap "Save changes".\n' +
-      '3. Use "Delete item" to remove items.\n' +
-      '4. The item "Laptop" cannot be deleted (the server will return an error).',
+      '• Use "Find item" to search by name.\n' +
+      '• Use "Edit item" to change details and tap "Save changes".\n' +
+      '• Use "Delete item" to remove items.\n' +
+      '• The item "Laptop" cannot be deleted (the server will return an error).',
     buttons: ['OK'],
     cssClass: 'help-alert'
   });
