@@ -47,7 +47,7 @@ export class InventoryService {
   
   // Delete an existing item
   deleteItem(name: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/items/${name}`);
+    return this.http.delete(`${this.apiUrl}/${name}`);
   }
 
 }

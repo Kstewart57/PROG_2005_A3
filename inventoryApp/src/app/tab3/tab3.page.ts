@@ -205,8 +205,12 @@ export class Tab3Page {
         }
       },
       // handle delete errors (e.g. Laptop rule or name not found)
-      error: () => {
-        this.deleteMessage = 'Delete failed (Laptop cannot be deleted or name not found)';
+      error: (err) => {
+        console.error('Delete error', err);
+        this.deleteMessage = 
+          (err?.error && err.error.message) || 
+          (err?.message) || 
+          'Delete failed (Laptop cannot be deleted or name not found)';
         this.deleteIsError = true;
       }
     });

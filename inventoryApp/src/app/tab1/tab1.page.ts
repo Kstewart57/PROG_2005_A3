@@ -25,6 +25,17 @@ export class Tab1Page implements OnInit {
 
   // Fetch all inventory items on page load
   ngOnInit() {
+    this.loadInventory();
+  }
+
+  // Refresh data when navigating back to this tab
+  ionViewWillEnter() {
+    this.loadInventory();
+  }
+
+  // Load inventory items from API
+  loadInventory() {
+    this.loading = true;
     this.inventoryService.getInventoryItems().subscribe({
       next: (data) => {
         this.inventoryItems = data;
