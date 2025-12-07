@@ -19,6 +19,7 @@ export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
 
   constructor() {
+    // register the icons used on each tab button. manual icon selection from ionic page
     addIcons({
       'reader-outline': readerOutline,
       'duplicate-outline': duplicateOutline,
